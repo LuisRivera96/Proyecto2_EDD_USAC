@@ -20,19 +20,19 @@ public class AVL {
     }
     
     ////ADDD////
-    int altura(NodoAVL N){
+    public int altura(NodoAVL N){
         if(N == null){
             return 0;
         }
         return N.altura;
     }
     
-    int mayor(int a,int b){
+    public int mayor(int a,int b){
         return(a>b)?a:b;
     }
     ///////////////ROTACIONES///////////////////////////
     //LEFT ROTATE
-    NodoAVL leftRotate(NodoAVL x){
+    public NodoAVL leftRotate(NodoAVL x){
         NodoAVL y = x.derecha;
         NodoAVL T2 = y.izquierda;
         
@@ -45,7 +45,7 @@ public class AVL {
         return y;
     }
     //RIGHT ROTATE
-    NodoAVL rightRotate(NodoAVL y){
+    public NodoAVL rightRotate(NodoAVL y){
         NodoAVL x = y.izquierda;
         NodoAVL T2 = x.derecha;
         
@@ -59,14 +59,14 @@ public class AVL {
     }
     
     //GET BALANCE
-    int getBalance(NodoAVL N){
+    public int getBalance(NodoAVL N){
         if(N == null){
             return 0;
         }
         return altura(N.izquierda) - altura(N.derecha);
     }
     
-    void insertar(String nombre,String contenido,String timestamp,String propietario){
+    public void insertar(String nombre,String contenido,String timestamp,String propietario){
         if(raiz != null){
             raiz = insertarR(raiz,nombre,contenido,timestamp,propietario);
         }else{
@@ -76,7 +76,7 @@ public class AVL {
         
     }
     
-    NodoAVL insertarR(NodoAVL nodo,String nombre,String contenido,String timestamp,String propietario){
+    public NodoAVL insertarR(NodoAVL nodo,String nombre,String contenido,String timestamp,String propietario){
         if(nodo == null){
             return (new NodoAVL(nombre,contenido,timestamp,propietario));
         }
@@ -116,10 +116,85 @@ public class AVL {
     }
     
     //DELETE////
+    public NodoAVL minValor(NodoAVL nodo){
+        NodoAVL current = nodo;
+        while(current.izquierda != null){
+            current = current.izquierda;
+        }
+        return current;
+    }
     
+    public void delete(String nombre){
+         
+        raiz = deleteR(raiz,nombre);
+    }
+     
+    public NodoAVL deleteR(NodoAVL root,String nombre){
+        //raiz es nula
+        if(root == null){
+            return root;
+        }
+        //
+        if(nombre.compareTo(root.nombre) < 0){
+            root.izquierda = deleteR(root.izquierda,nombre);
+        }else if(nombre.compareTo(root.nombre) > 0){
+            root.derecha = deleteR(root.derecha,nombre);
+        }else{
+            if((root.izquierda == null) || (root.derecha == null)){
+                NodoAVL  temp = null;
+                if(temp == root.izquierda){
+                    temp = root.derecha;
+                }else{
+                    temp = root.izquierda;
+                }
+                //no hijo
+                if(temp == null){
+                    temp = root;
+                    root = null;
+                }else{
+                    root = temp;
+                }
+                
+            }else{
+                NodoAVL temp = minValor(root.derecha);
+                root.nombre = temp.nombre;
+                root.derecha = deleteR(root.derecha,temp.nombre);
+            }
+        }
+        
+        if(root == null){
+            return root;
+        }
+        root.altura = mayor(altura(root.izquierda),altura(root.derecha))+1;
+        root.FE = getBalance(root);
+        
+        int balance = getBalance(root);
+        
+        //ROTACIONES
+        //LEFT LEFT
+        if(balance > 1 && getBalance(root.izquierda) >=0){
+            return rightRotate(root);
+        }
+        //LEFT RIGHT
+        if(balance >1 && getBalance(root.izquierda) < 0){
+            root.izquierda = leftRotate(root.izquierda);
+            return rightRotate(root);
+        }
+        //RIGHT RIGHT
+        if(balance < -1 && getBalance(root.derecha) <=0){
+            return leftRotate(root);
+        }
+        //RIGHT LEFT
+        if(balance < -1 && getBalance(root.derecha) > 0){
+            root.derecha = rightRotate(root.derecha);
+            return leftRotate(root);
+        }
+        
+        return root;
+    }
     
     ///GRAPHIZ///
-    String graficar(NodoAVL raiz){
+    public String graficar(NodoAVL raiz){
         String Dot="";
         
         if(raiz != null){
@@ -143,7 +218,7 @@ public class AVL {
         return Dot;
     }
     
-    void getGrafica(){
+    public void getGrafica(){
         String dot = "";
         dot += "digraph AVL{\n";
         dot += "compound=true;\n";

@@ -13,6 +13,7 @@ public class Hash {
     
     NodoHash inicio;
     
+    
     public Hash(){
         this.inicio = null;
     }
