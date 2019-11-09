@@ -16,11 +16,10 @@ public class NodoHash {
     int llave;
     NodoHash siguiente;
     
-    public NodoHash(String usuario,String password,int llave){
+    public NodoHash(String usuario,String password){
         this.usuario = usuario;
         this.password = password;
-        this.llave = llave;
-        this.siguiente = null;
+        siguiente = null;
     }
 
     public String getUsuario() {
@@ -39,13 +38,7 @@ public class NodoHash {
         this.password = password;
     }
 
-    public int getLlave() {
-        return llave;
-    }
-
-    public void setLlave(int llave) {
-        this.llave = llave;
-    }
+    
 
     public NodoHash getSiguiente() {
         return siguiente;
