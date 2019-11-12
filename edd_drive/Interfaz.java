@@ -5,6 +5,8 @@
  */
 package edd_drive;
 
+import Structures.Hash;
+import Structures.Pila;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,7 +20,10 @@ public class Interfaz extends javax.swing.JFrame {
      */
     JFRegistro PanelRegistro = new JFRegistro();
     JFAdmin PanelAdmin = new JFAdmin();
-    
+    //EDDD ESTATICAS//
+    public static Pila  pila = new Pila();
+    public static Hash  hash = new Hash();
+    /////////////////
     
     public Interfaz() {
         initComponents();

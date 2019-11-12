@@ -13,12 +13,14 @@ public class NodoHash {
             
     String usuario;
     String password;
+    String timestamp;
     int llave;
     NodoHash siguiente;
     
-    public NodoHash(String usuario,String password){
+    public NodoHash(String usuario,String password,String timestamp){
         this.usuario = usuario;
         this.password = password;
+        this.timestamp = timestamp;
         siguiente = null;
     }
 
@@ -46,6 +48,22 @@ public class NodoHash {
 
     public void setSiguiente(NodoHash siguiente) {
         this.siguiente = siguiente;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public int getLlave() {
+        return llave;
+    }
+
+    public void setLlave(int llave) {
+        this.llave = llave;
     }
     
     

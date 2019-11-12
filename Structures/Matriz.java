@@ -5,6 +5,8 @@
  */
 package Structures;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 
 /**
@@ -277,22 +279,27 @@ public class Matriz {
     }
     
     void getGrafica(){
-        String dot = "";
-        dot += "digraph DISPERSA{\n";
-        dot += "node[shape=box];\n";
-        dot += "graph[nodesep = 0.5];\n";
-        dot += "header[label=\"MATRIX\" style=filled, color=firebrick1, pos=\"0,0!\"];\n";
-        dot += graficar(raizFila,raizColumna);
-        dot += "}";
         try{
-           PrintWriter file = new PrintWriter("","UTF-8");
-           file.print(dot);
-           file.close();
-           String cmd = "Neato -Tjpg Dispersa.dot -o Dispersa.jpg";
-           Runtime.getRuntime().exec(cmd);
+            FileWriter txtDot = new FileWriter("DISPERSA.dot");
+            PrintWriter pw = new PrintWriter(txtDot);
+            pw.println("digraph DISPERSA{\n");
+            pw.println("node[shape=box];\n");
+            pw.println("graph[nodesep = 0.5];\n");
+            pw.println("header[label=\"MATRIX\" style=filled, color=firebrick1, pos=\"0,0!\"];\n");
+            pw.println(graficar(raizFila,raizColumna));
+            pw.println("}");
+            txtDot.close();
+           //compilar dot y generar imagen
+            File miDir = new File(".");
+            String ruta = miDir.getCanonicalPath() + "\\";//ruta actual
+            String salida = "Neato -Tjpg Dispersa.dot -o Dispersa.jpg";
+            Runtime rt = Runtime.getRuntime();
+            rt.exec(salida);
         }catch(Exception e){
             System.out.println("Error");
-        }    
+        }
+        
+          
     }
     
     

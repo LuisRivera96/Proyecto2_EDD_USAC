@@ -17,8 +17,8 @@ public class ListaUsuarios {
         inicio = null;
     }
     
-    public void add(String usuario,String password){
-        NodoHash nuevo = new NodoHash(usuario,password);
+    public void add(String usuario,String password,String timestamp){
+        NodoHash nuevo = new NodoHash(usuario,password,timestamp);
         if(inicio == null){
             inicio = nuevo;
             fin = inicio;

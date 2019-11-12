@@ -5,6 +5,8 @@
  */
 package Structures;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 
 /**
@@ -53,15 +55,27 @@ public class Pila {
             
         }
         line1 += "\"];";
+        
         try{
-           PrintWriter file = new PrintWriter("","UTF-8");
-           file.print(line1);
-           file.close();
-           String cmd = "dot -Tjpg Eventos.dot -o Eventos.jpg";
-           Runtime.getRuntime().exec(cmd);
+            FileWriter txtDot = new FileWriter("Eventos.dot");
+            PrintWriter pw = new PrintWriter(txtDot);
+            pw.println("digraph EVENTOS{\n");
+           //pw.println("compound=true;\n");
+            //pw.println("node[shape=\"Mrecord\"];\n");
+            pw.println(line1);
+            pw.println("}");
+            txtDot.close();
+           //compilar dot y generar imagen
+            File miDir = new File(".");
+            String ruta = miDir.getCanonicalPath() + "\\";//ruta actual
+            String salida = "dot -Tjpg Eventos.dot -o Eventos.jpg";
+            Runtime rt = Runtime.getRuntime();
+            rt.exec(salida);
         }catch(Exception e){
             System.out.println("Error");
-        } 
+        }
+        
+        
         
     }
     

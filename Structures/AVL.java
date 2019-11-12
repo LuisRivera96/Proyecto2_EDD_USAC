@@ -5,7 +5,12 @@
  */
 package Structures;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -200,9 +205,9 @@ public class AVL {
         if(raiz != null){
             if(raiz.derecha != null || raiz.izquierda != null){
                 Dot += raiz.nombre + ":f" + raiz.nombre + "[id=" + raiz.nombre + ", color=\"blue\"];\n";
-                Dot += raiz.nombre + "[label=\"<N "+ raiz.nombre + " I> | <f" + raiz.nombre + "> "+"Nombre Archivo: "+raiz.nombre+"\\n Contenido: "+raiz.contenido+"\\n Factor de Equilibrio: "+raiz.FE+"\\n Altura: "+raiz.altura+"\\n Timestamp: "+raiz.timestamp+"\\n Propietario: "+raiz.propietario+" | <f"+raiz.nombre+"D> \" shape=\"record\"];\n";
+                Dot += raiz.nombre + "[label=\"<N "+ raiz.nombre + " I> | <f " + raiz.nombre + "> "+"Nombre Archivo: "+raiz.nombre+"\\n Contenido: "+raiz.contenido+"\\n Factor de Equilibrio: "+raiz.FE+"\\n Altura: "+raiz.altura+"\\n Timestamp: "+raiz.timestamp+"\\n Propietario: "+raiz.propietario+" | <f"+raiz.nombre+"D> \" shape=\"record\"];\n";
             }else{
-                Dot += raiz.nombre + ":f" + raiz.nombre + "[label=\""+"Nombre Archivo: "+raiz.nombre+"\\n Contenido: "+raiz.contenido+"\\n Factor de Equilibrio: "+raiz.FE+"\\n Altura: "+raiz.altura+"\\n Timestamp: "+raiz.timestamp+"\\n Propietario: "+raiz.propietario+ ", color=\"blue\" shape=\"rectangle\"];\n";
+                Dot += raiz.nombre + ":f " + raiz.nombre + "[label=\""+"Nombre Archivo: "+raiz.nombre+"\\n Contenido: "+raiz.contenido+"\\n Factor de Equilibrio: "+raiz.FE+"\\n Altura: "+raiz.altura+"\\n Timestamp: "+raiz.timestamp+"\\n Propietario: "+raiz.propietario+ "\", color=\"blue\" shape=\"rectangle\"];\n";
             }
             String a = graficar(raiz.izquierda);
             if(a != ""){
@@ -219,23 +224,29 @@ public class AVL {
     }
     
     public void getGrafica(){
-        String dot = "";
-        dot += "digraph AVL{\n";
-        dot += "compound=true;\n";
-        dot += "node[shape=\"Mrecord\"];\n";
-        dot += graficar(raiz);
-        dot += "}";
         try{
-           PrintWriter file = new PrintWriter("","UTF-8");
-           file.print(dot);
-           file.close();
-           String cmd = "dot -Tjpg AVL.dot -o AVL.jpg";
-           Runtime.getRuntime().exec(cmd);
+            FileWriter txtDot = new FileWriter("AVL.dot");
+            PrintWriter pw = new PrintWriter(txtDot);
+            pw.println("digraph AVL{\n");
+            pw.println("compound=true;\n");
+            pw.println("node[shape=\"Mrecord\"];\n");
+            pw.println(graficar(raiz));
+            pw.println("}");
+            txtDot.close();
+           //compilar dot y generar imagen
+            File miDir = new File(".");
+            String ruta = miDir.getCanonicalPath() + "\\";//ruta actual
+            System.out.println("Dire "+ruta);
+            String salida = "dot -Tjpg AVL.dot -o AVL.jpg";
+            Runtime rt = Runtime.getRuntime();
+            rt.exec(salida);
         }catch(Exception e){
             System.out.println("Error");
         }
     }
     
-    
+   
     
 }
+
+
