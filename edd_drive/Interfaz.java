@@ -6,8 +6,12 @@
 package edd_drive;
 
 import Structures.Hash;
+import Structures.NodoHash;
 import Structures.Pila;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,13 +24,20 @@ public class Interfaz extends javax.swing.JFrame {
      */
     JFRegistro PanelRegistro = new JFRegistro();
     JFAdmin PanelAdmin = new JFAdmin();
+    
     //EDDD ESTATICAS//
     public static Pila  pila = new Pila();
     public static Hash  hash = new Hash();
+    public static DefaultTableModel modeloA = new DefaultTableModel();
+    public static DefaultTableModel modeloE = new DefaultTableModel();
+    public static int conteoA = 0;
+    public static int conteoE = 0;
+    public static String usuarioActual = "";
     /////////////////
     
     public Interfaz() {
         initComponents();
+        //hash.insertarUsuario("Admin","Admin");
     }
 
     /**
@@ -142,16 +153,58 @@ public class Interfaz extends javax.swing.JFrame {
     private void JBIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBIngresarActionPerformed
         // TODO add your handling code here:
         if(JTFUsuario.getText().equals("Admin") && JTFPassword.getText().equals("Admin")){
+            pila.push("Ingreso Admin", pila.getTime(),"Admin");
             JOptionPane.showMessageDialog(null,"Ingresando Admin");
             PanelAdmin.setLocationRelativeTo(null);
             PanelAdmin.show(true);
         }else{
-            JOptionPane.showMessageDialog(null,"Usuario no Existe");
+            //VALIDAR USUARIO
+            String usuario = JTFUsuario.getText();
+            String contra = JTFPassword.getText();
+            //VER SI EXISTE EL USUARIO
+            NodoHash userN = null;
+            userN = hash.buscar(usuario);
+            if(userN != null){
+                //VALIDAR CONTRASENA
+                String passIng = convertirSHA256(contra);
+                if(passIng.equals(userN.getPassword())){
+                    usuarioActual = userN.getUsuario();
+                    pila.push("Ingreso Usuario", pila.getTime(),usuarioActual);
+                    JOptionPane.showMessageDialog(null,"Ingresando"+userN.getUsuario());
+                    //panel usuario
+                }else{
+                    JOptionPane.showMessageDialog(null,"Password incorrecto");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null,"Usuario no Existe");
+            }
+
         }
         
         
     }//GEN-LAST:event_JBIngresarActionPerformed
-
+    
+    //FUNCION SHA256
+    public String convertirSHA256(String password) {
+	MessageDigest md = null;
+	try {
+		md = MessageDigest.getInstance("SHA-256");
+	} 
+	catch (NoSuchAlgorithmException e) {		
+		e.printStackTrace();
+		return null;
+	}
+	    
+	byte[] hash = md.digest(password.getBytes());
+	StringBuffer sb = new StringBuffer();
+	    
+	for(byte b : hash) {        
+		sb.append(String.format("%02x", b));
+	}
+	    
+	return sb.toString();
+    }
+    
     private void JBRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBRegistrarActionPerformed
         // TODO add your handling code here:
         PanelRegistro.setLocationRelativeTo(null);

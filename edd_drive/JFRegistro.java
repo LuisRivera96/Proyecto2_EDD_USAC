@@ -5,8 +5,11 @@
  */
 package edd_drive;
 
+import Structures.NodoHash;
 import javax.swing.JOptionPane;
-
+import static edd_drive.Interfaz.hash;
+import static edd_drive.Interfaz.pila;
+import static edd_drive.Interfaz.usuarioActual;
 /**
  *
  * @author user
@@ -126,12 +129,23 @@ public class JFRegistro extends javax.swing.JFrame {
     private void JBRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBRegistrarActionPerformed
         // TODO add your handling code here:
         //buscar en hash
-        //validar contrasena
-        if ( !JTFUsuario.getText().equals("") && JTFPassword.getText().length() >= 8){
-            JOptionPane.showMessageDialog(null,"Usuario Agregado con Exito");
+        NodoHash temporal;
+        temporal = hash.buscar(JTFUsuario.getText());
+        String user = JTFUsuario.getText();
+        String pass = JTFPassword.getText();
+        if(temporal != null){
+            JOptionPane.showMessageDialog(null, "Usuario ya Registrado", "Error de Credenciales", JOptionPane.ERROR_MESSAGE);
         }else{
-           JOptionPane.showMessageDialog(null, "El Password debe contener almenos 8 caracteres", "Error de Credenciales", JOptionPane.ERROR_MESSAGE); 
+            if(pass.length() > 7){
+                hash.insertarUsuario(user,pass);
+                pila.push("Registro de Usuario", pila.getTime(),"");
+                JOptionPane.showMessageDialog(null,"Usuario Agregado con Exito");
+            }else{
+               JOptionPane.showMessageDialog(null, "El Password debe contener almenos 8 caracteres", "Error de Credenciales", JOptionPane.ERROR_MESSAGE); 
+            }
         }
+        
+       
         //insertar
         
     }//GEN-LAST:event_JBRegistrarActionPerformed

@@ -4,7 +4,21 @@
  * and open the template in the editor.
  */
 package edd_drive;
-
+import static edd_drive.Interfaz.hash;
+import static edd_drive.Interfaz.modeloA;
+import static edd_drive.Interfaz.modeloE;
+import static edd_drive.Interfaz.pila;
+import static edd_drive.Interfaz.usuarioActual;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 /**
  *
  * @author user
@@ -14,8 +28,24 @@ public class JFAdmin extends javax.swing.JFrame {
     /**
      * Creates new form JFAdmin
      */
+    String[] columnas1 = {};
+    String[] columnas2 = {};
+    JFReportes reportes = new JFReportes();
+    
+    
+    
     public JFAdmin() {
         initComponents();
+        modeloA.addColumn("No.",columnas1);
+        modeloA.addColumn("Usuario",columnas1);
+        modeloA.addColumn("Password",columnas1);
+        modeloE.addColumn("No.",columnas1);
+        modeloE.addColumn("Usuario",columnas1);
+        modeloE.addColumn("Razon",columnas1);
+        JTUsuariosA.setModel(modeloA);
+        JTUsuariosN.setModel(modeloE);
+        JTUsuariosA.getAutoscrolls();
+        JTUsuariosN.getAutoscrolls();
     }
 
     /**
@@ -37,7 +67,7 @@ public class JFAdmin extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         JTUsuariosA = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        JTUsuariosN = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,7 +115,7 @@ public class JFAdmin extends javax.swing.JFrame {
         JTUsuariosA.setRowSelectionAllowed(false);
         jScrollPane1.setViewportView(JTUsuariosA);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        JTUsuariosN.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -96,7 +126,7 @@ public class JFAdmin extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(JTUsuariosN);
 
         javax.swing.GroupLayout JPAdminLayout = new javax.swing.GroupLayout(JPAdmin);
         JPAdmin.setLayout(JPAdminLayout);
@@ -109,44 +139,46 @@ public class JFAdmin extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(JPAdminLayout.createSequentialGroup()
                         .addGap(53, 53, 53)
-                        .addGroup(JPAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(JBCarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(JBReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(JBSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(JPAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(JPAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(JBCarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(JBReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(JBSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(374, Short.MAX_VALUE))
             .addGroup(JPAdminLayout.createSequentialGroup()
-                .addGap(233, 233, 233)
-                .addGroup(JPAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
-                .addGroup(JPAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPAdminLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(45, 45, 45))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPAdminLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))))
+                .addGap(93, 93, 93)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(129, 129, 129))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPAdminLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         JPAdminLayout.setVerticalGroup(
             JPAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPAdminLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(13, 13, 13)
-                .addComponent(JBCarga)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(JBReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(JBSalir)
-                .addGap(18, 18, 18)
-                .addGroup(JPAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(JPAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(JPAdminLayout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(JBCarga)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JBReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JBSalir))
+                    .addGroup(JPAdminLayout.createSequentialGroup()
+                        .addGap(137, 137, 137)
+                        .addGroup(JPAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGroup(JPAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
                 .addGap(107, 107, 107))
         );
 
@@ -172,15 +204,56 @@ public class JFAdmin extends javax.swing.JFrame {
 
     private void JBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSalirActionPerformed
         // TODO add your handling code here:
+        pila.push("Salio Admin", pila.getTime(),"Admin");
         this.show(false);
     }//GEN-LAST:event_JBSalirActionPerformed
 
     private void JBCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCargaActionPerformed
         // TODO add your handling code here:
+        JFileChooser selectorArchivos = new JFileChooser();
+        selectorArchivos.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        int resultado = selectorArchivos.showOpenDialog(this);
+        File archivo = selectorArchivos.getSelectedFile();
+            // obtiene el archivo seleccionado
+                
+// muestra error si es inválido
+        if ((archivo == null) || (archivo.getName().equals(""))) {
+            JOptionPane.showMessageDialog(this, "Nombre de archivo inválido", "Nombre de archivo inválido", JOptionPane.ERROR_MESSAGE);
+        } // fin de if
+        try {
+            Scanner scn = new Scanner(archivo);
+            //
+            BufferedReader br = null;
+            String line = "";
+            
+                br = new BufferedReader(new FileReader(archivo));
+            try {
+                while((line = br.readLine()) != null){
+                    String[] datos = line.split(",");
+                    if(datos[0].equals("Usuario") || datos[1].equals("Password")){
+                        
+                    }else{
+                        //System.out.println("User: "+datos[0]+" Pass: "+datos[1]);
+                        hash.insertarUsuario(datos[0],datos[1]);
+                    }
+                }
+            } catch (IOException ex) {
+                System.out.println("ErrorCSV");
+            }
+                hash.graficarHash();
+            pila.push("Carga Masiva de Usuarios", pila.getTime(),"Admin");
+            //
+            
+        } catch (FileNotFoundException ex) {
+            System.out.println("Error Carga");
+        }
+        
     }//GEN-LAST:event_JBCargaActionPerformed
 
     private void JBReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBReportesActionPerformed
         // TODO add your handling code here:
+        reportes.setLocationRelativeTo(null);
+        reportes.show(true);
         
     }//GEN-LAST:event_JBReportesActionPerformed
 
@@ -225,11 +298,11 @@ public class JFAdmin extends javax.swing.JFrame {
     private javax.swing.JButton JBSalir;
     private javax.swing.JPanel JPAdmin;
     private javax.swing.JTable JTUsuariosA;
+    private javax.swing.JTable JTUsuariosN;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

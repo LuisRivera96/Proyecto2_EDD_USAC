@@ -8,6 +8,9 @@ package Structures;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -21,7 +24,7 @@ public class Pila {
         cima = null;
     }
     
-    void push(String evento,String timestamp,String usuario){
+    public void push(String evento,String timestamp,String usuario){
         NodoPila nuevo = new NodoPila(evento,timestamp,usuario);
         if(cima == null){
             nuevo.siguiente = null;
@@ -32,7 +35,7 @@ public class Pila {
         }
     }
     
-    void pop(){
+    public void pop(){
         if(cima == null){
             System.out.println("Pila sin eventos");
         }else{
@@ -40,7 +43,14 @@ public class Pila {
         }
     }
     
-    void getGraphica(){
+    public String getTime(){
+        Date date = new Date();
+        DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        String time = hourdateFormat.format(date);
+        return time;
+    }
+    
+   public void getGraphica(){
         String line1 = "";
         int count = 0;
         NodoPila temporal = cima;

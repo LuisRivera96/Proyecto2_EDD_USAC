@@ -4,11 +4,21 @@
  * and open the template in the editor.
  */
 package Structures;
+
+import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import static edd_drive.Interfaz.modeloA;
+import static edd_drive.Interfaz.modeloE;
+import static edd_drive.Interfaz.conteoA;
+import static edd_drive.Interfaz.conteoE;
+import static edd_drive.Interfaz.hash;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  *
  * @author user
@@ -27,12 +37,17 @@ public class Hash {
         boolean verificacion = validarUsuario(usuario,password);
         
         if(verificacion == true){
+        tamano++;    
         int indice = getIndice(usuario);
         //sha256
         String Npass = convertirSHA256(password);
         String timestamp = "";
-        hash[indice].add(usuario,Npass,timestamp);
-        tamano++;
+        if(hash[indice] ==  null){
+            hash[indice] = new ListaUsuarios();
+        }
+        String time = getTime();
+        hash[indice].add(usuario,Npass,time);
+        
         if((double)tamano/hash.length >0.75){
             hash = reHash(hash);
         } 
@@ -47,40 +62,72 @@ public class Hash {
         if(password.length() > 7){
             validez1 = true;
         }else{
-          
             validez1 = false;
+            conteoE++;
+            modeloE.addRow(new Object[]{conteoE,usuario,"Contrasena menor a 8 Caracteres"});
             //agregar a userNoInsertado
         }
         for (int i = 0; i < hash.length; i++) {
-            userN = hash[i].buscar(usuario);
+            if(hash[i] != null){
+               userN = hash[i].buscar(usuario); 
+            }
+            
         }
         if(userN != null){
             validez2 = false;
-            //agregar a userNoInsertado
+            conteoE++;
+            modeloE.addRow(new Object[]{conteoE,usuario,"Usuario ya Registrado"});
         }else{
             
             validez2 = true;
+            conteoA++;
+            modeloA.addRow(new Object[]{conteoA,usuario,password});
         }
         if(validez1 == true && validez2 == true){
             validezT = true;
             return validezT;
         }else{
+            validezT = false;
             return validezT;
         }
         
     }
     
+    
+    public NodoHash buscar(String usuario){
+        NodoHash userN =  null;
+        for (int i = 0; i < hash.length; i++) {
+            if(hash[i] != null){
+               userN = hash[i].buscar(usuario);
+               if(userN != null){
+                   return userN;
+               }
+            }
+            
+        }
+        return userN;
+        
+    }
     int getIndice(String usuario){
         int var = 0;
         int posicion;
         for(int i=0;i<usuario.length();i++){
-            var += usuario.codePointAt(i);
+            char caracter = usuario.charAt(i);
+            int ascci = (int) caracter;
+            var += ascci;
         }
         
         posicion = var % hash.length;
+        //System.out.println("Posicion "+posicion);
         return posicion;
     }
     
+    public String getTime(){
+        Date date = new Date();
+        DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        String time = hourdateFormat.format(date);
+        return time;
+    }
     ListaUsuarios[] reHash(ListaUsuarios tabla[]){
         ListaUsuarios temporal[] = new ListaUsuarios[numeroPrimoSiguiente(tabla.length)];
         for (int i = 0; i < tabla.length; i++) {
@@ -94,9 +141,9 @@ public class Hash {
         int siguiente = actual;
         int contador = 2;//evitamos el 1
         boolean primo = false;
-        while (primo != true) {//si es primo sale del ciclo
+        while (primo != true){//si es primo sale del ciclo
             siguiente++;
-            while (siguiente > contador) {//evitamos dividirlo entre el mismo                
+            while(siguiente > contador){//evitamos dividirlo entre el mismo                
                 primo = true;
                 if (siguiente % contador == 0) {//si es divisible no es primo
                     primo = false;
@@ -139,7 +186,7 @@ public class Hash {
         dot += "\t\t//Agregar Hash\n";
         dot += "LIST[label=\"";
         for (int i = 0; i < hash.length; i++) {
-            contenido += i+")";
+            contenido += i+")\\n\\n\\n\\n";
             if (i < hash.length - 1) {
                 dot += "<N" + i + ">" + contenido + "|";
             } else {
@@ -150,11 +197,12 @@ public class Hash {
         dot += "\"];\n";
         dot += "\t\t//Agregar Usuarios\n";
         for (int i = 0; i < hash.length; i++) {
-            if(hash[i].inicio != null){
+            if(hash[i] != null){
                 dot += "N" + i + "[label=\"{";
                 //recorrer lista
                 NodoHash temporal;
-                temporal = hash[i].inicio;
+                temporal = hash[i].getInicio();
+                
                 while(temporal != null){
                     if(temporal.siguiente != null){
                         dot += "Nombre: "+temporal.usuario+ " Password: "+temporal.password+" TimesTamp: "+temporal.timestamp+"|";  
@@ -163,13 +211,16 @@ public class Hash {
                     }
                     temporal = temporal.siguiente;
                 }
+                
                 dot += "}\"];\n";
             }
+            
         }
+        
         dot += "\t\t//Agregar Conexiones\n";
         
         for (int i = 0; i < hash.length; i++) {
-            if (hash[i].inicio != null) {
+            if (hash[i] != null) {
                 dot+="LIST:N"+i+"->N"+i+";\n";
             }
         }
@@ -197,7 +248,8 @@ public class Hash {
 
 
         } catch (Exception e) {
-            System.out.println("ERROR");
+            System.out.println("ERRORGRAFICARHASH");
+            System.out.println(e);
         }
     }
     

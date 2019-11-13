@@ -10,11 +10,12 @@ package Structures;
  * @author user
  */
 public class ListaUsuarios {
-    NodoHash inicio;
-    NodoHash fin;
+    public NodoHash inicio;
+    public NodoHash fin;
     
     public ListaUsuarios(){
         inicio = null;
+        fin = null;
     }
     
     public void add(String usuario,String password,String timestamp){
@@ -37,6 +38,22 @@ public class ListaUsuarios {
             temporal = temporal.siguiente;
         }
         return null;
+    }
+
+    public NodoHash getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(NodoHash inicio) {
+        this.inicio = inicio;
+    }
+
+    public NodoHash getFin() {
+        return fin;
+    }
+
+    public void setFin(NodoHash fin) {
+        this.fin = fin;
     }
     
     
