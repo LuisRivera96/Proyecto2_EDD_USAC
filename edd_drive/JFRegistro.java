@@ -139,6 +139,7 @@ public class JFRegistro extends javax.swing.JFrame {
             if(pass.length() > 7){
                 hash.insertarUsuario(user,pass);
                 pila.push("Registro de Usuario", pila.getTime(),"");
+                hash.graficarHash();
                 JOptionPane.showMessageDialog(null,"Usuario Agregado con Exito");
             }else{
                JOptionPane.showMessageDialog(null, "El Password debe contener almenos 8 caracteres", "Error de Credenciales", JOptionPane.ERROR_MESSAGE); 

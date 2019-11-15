@@ -240,7 +240,7 @@ public class JFAdmin extends javax.swing.JFrame {
             } catch (IOException ex) {
                 System.out.println("ErrorCSV");
             }
-                hash.graficarHash();
+            hash.graficarHash();    
             pila.push("Carga Masiva de Usuarios", pila.getTime(),"Admin");
             //
             
@@ -252,6 +252,7 @@ public class JFAdmin extends javax.swing.JFrame {
 
     private void JBReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBReportesActionPerformed
         // TODO add your handling code here:
+        pila.getGraphica();
         reportes.setLocationRelativeTo(null);
         reportes.show(true);
         

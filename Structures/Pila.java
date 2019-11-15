@@ -55,10 +55,10 @@ public class Pila {
         int count = 0;
         NodoPila temporal = cima;
         line1 += "digraph Eventos{\n node [shape=record];\n rankdir=LR;\n nodo0[label=\"|";
-        while(temporal.siguiente != null){
+        while(temporal != null){
             line1 += "<"+count+">"+"Fecha y Hora: "+temporal.timestamp+"\\n Operacion: "+temporal.evento+"\\n Usuario: "+temporal.usuario+"\\n";
             count++;
-            if(temporal.siguiente.siguiente != null){
+            if(temporal.siguiente != null){
                 line1 += "|"; 
             }
             temporal = temporal.siguiente;
@@ -69,7 +69,7 @@ public class Pila {
         try{
             FileWriter txtDot = new FileWriter("Eventos.dot");
             PrintWriter pw = new PrintWriter(txtDot);
-            pw.println("digraph EVENTOS{\n");
+            //pw.println("digraph EVENTOS{\n");
            //pw.println("compound=true;\n");
             //pw.println("node[shape=\"Mrecord\"];\n");
             pw.println(line1);

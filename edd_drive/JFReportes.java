@@ -5,7 +5,17 @@
  */
 package edd_drive;
 
+import static edd_drive.Interfaz.hash;
+import static edd_drive.Interfaz.pila;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -16,24 +26,20 @@ public class JFReportes extends javax.swing.JFrame {
     /**
      * Creates new form JFReportes
      */
-    JPanel panelHash = new JPanel();
-    JPanel panelPila = new JPanel();
-    JPanel panelDispersa = new JPanel();
-    JPanel panelAVL = new JPanel();
-    JPanel panelGrafo = new JPanel();
+    
+    //IMAGEN
+    ImageIcon imagenHash;
+    File miDir;
+    JLabel etiqueta;
+    JScrollPane scrollpane;
     
     public JFReportes() {
         initComponents();
-        panelHash.setSize(JTPReportes.getSize());
-        panelPila.setSize(JTPReportes.getSize());
-        panelDispersa.setSize(JTPReportes.getSize());
-        panelAVL.setSize(JTPReportes.getSize());
-        panelGrafo.setSize(JTPReportes.getSize());
-        JTPReportes.addTab("HASH", panelHash);
-        JTPReportes.addTab("VITACORA", panelPila);
-        JTPReportes.addTab("DISPERSA", panelDispersa);
-        JTPReportes.addTab("AVL", panelAVL);
-        JTPReportes.addTab("GRAFO", panelGrafo);
+       
+        //IMAGENES
+        imagenHash();
+        imagenPila();
+        
     }
 
     /**
@@ -48,6 +54,10 @@ public class JFReportes extends javax.swing.JFrame {
         JBTRegresar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         JTPReportes = new javax.swing.JTabbedPane();
+        JPHash = new javax.swing.JPanel();
+        JSCHash = new javax.swing.JScrollPane();
+        JPPila = new javax.swing.JPanel();
+        JSCPila = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,6 +70,44 @@ public class JFReportes extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("REPORTES");
+
+        javax.swing.GroupLayout JPHashLayout = new javax.swing.GroupLayout(JPHash);
+        JPHash.setLayout(JPHashLayout);
+        JPHashLayout.setHorizontalGroup(
+            JPHashLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPHashLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(JSCHash, javax.swing.GroupLayout.DEFAULT_SIZE, 755, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        JPHashLayout.setVerticalGroup(
+            JPHashLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPHashLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(JSCHash, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        JTPReportes.addTab("HASH", JPHash);
+
+        javax.swing.GroupLayout JPPilaLayout = new javax.swing.GroupLayout(JPPila);
+        JPPila.setLayout(JPPilaLayout);
+        JPPilaLayout.setHorizontalGroup(
+            JPPilaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPPilaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(JSCPila, javax.swing.GroupLayout.DEFAULT_SIZE, 755, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        JPPilaLayout.setVerticalGroup(
+            JPPilaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPPilaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(JSCPila, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        JTPReportes.addTab("Eventos", JPPila);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,7 +123,7 @@ public class JFReportes extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(360, 360, 360)
                                 .addComponent(JBTRegresar)))
-                        .addGap(0, 328, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(JTPReportes)))
@@ -89,13 +137,47 @@ public class JFReportes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JBTRegresar)
                 .addGap(18, 18, 18)
-                .addComponent(JTPReportes, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                .addComponent(JTPReportes)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public void imagenHash(){
+        miDir = new File(".");
+        try {
+            
+            imagenHash = new ImageIcon(miDir.getCanonicalPath() + "\\HASH.png");
+            Image img = imagenHash.getImage();
+            ImageIcon imgt = new ImageIcon(img.getScaledInstance(imagenHash.getIconWidth(),imagenHash.getIconHeight(),Image.SCALE_AREA_AVERAGING));
+            etiqueta = new JLabel();
+            etiqueta.setIcon(imgt);
+            JSCHash.setViewportView(etiqueta);
+            JPHash.add(JSCHash);
+            //scrollpane.setBounds(0, 0, panelHash.getWidth(), panelHash.getHeight());
+            
+        } catch (IOException ex) {
+            System.out.println("Error imagen NO encontrada");
+        }
+    }
+    
+    public void imagenPila(){
+       miDir = new File(".");
+        try {
+            
+            imagenHash = new ImageIcon(miDir.getCanonicalPath() + "\\Eventos.jpg");
+            Image img = imagenHash.getImage();
+            ImageIcon imgt = new ImageIcon(img.getScaledInstance(imagenHash.getIconWidth(),imagenHash.getIconHeight(),Image.SCALE_AREA_AVERAGING));
+            etiqueta = new JLabel();
+            etiqueta.setIcon(imgt);
+            JSCPila.setViewportView(etiqueta);
+            JPPila.add(JSCPila);
+            //scrollpane.setBounds(0, 0, panelHash.getWidth(), panelHash.getHeight());
+            
+        } catch (IOException ex) {
+            System.out.println("Error imagen NO encontrada");
+        } 
+    }
     private void JBTRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTRegresarActionPerformed
         this.show(false);
     }//GEN-LAST:event_JBTRegresarActionPerformed
@@ -137,6 +219,10 @@ public class JFReportes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBTRegresar;
+    private javax.swing.JPanel JPHash;
+    private javax.swing.JPanel JPPila;
+    private javax.swing.JScrollPane JSCHash;
+    private javax.swing.JScrollPane JSCPila;
     private javax.swing.JTabbedPane JTPReportes;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
