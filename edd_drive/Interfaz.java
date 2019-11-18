@@ -24,6 +24,7 @@ public class Interfaz extends javax.swing.JFrame {
      */
     JFRegistro PanelRegistro = new JFRegistro();
     JFAdmin PanelAdmin = new JFAdmin();
+    JFUsuario PanelUsuario = new JFUsuario();
     
     //EDDD ESTATICAS//
     public static Pila  pila = new Pila();
@@ -33,6 +34,7 @@ public class Interfaz extends javax.swing.JFrame {
     public static int conteoA = 0;
     public static int conteoE = 0;
     public static String usuarioActual = "";
+    public static NodoHash usuarioActivo = null;
     /////////////////
     
     public Interfaz() {
@@ -170,7 +172,9 @@ public class Interfaz extends javax.swing.JFrame {
                 if(passIng.equals(userN.getPassword())){
                     usuarioActual = userN.getUsuario();
                     pila.push("Ingreso Usuario", pila.getTime(),usuarioActual);
-                    JOptionPane.showMessageDialog(null,"Ingresando"+userN.getUsuario());
+                    JOptionPane.showMessageDialog(null,"Ingresando Usuario: "+userN.getUsuario());
+                    PanelUsuario.setLocationRelativeTo(null);
+                    PanelUsuario.show();
                     //panel usuario
                 }else{
                     JOptionPane.showMessageDialog(null,"Password incorrecto");

@@ -39,7 +39,7 @@ public class JFReportes extends javax.swing.JFrame {
         //IMAGENES
         imagenHash();
         imagenPila();
-        
+        imagenAVL();
     }
 
     /**
@@ -58,6 +58,8 @@ public class JFReportes extends javax.swing.JFrame {
         JSCHash = new javax.swing.JScrollPane();
         JPPila = new javax.swing.JPanel();
         JSCPila = new javax.swing.JScrollPane();
+        JPAVL = new javax.swing.JPanel();
+        JSCAVL = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,6 +110,25 @@ public class JFReportes extends javax.swing.JFrame {
         );
 
         JTPReportes.addTab("Eventos", JPPila);
+
+        javax.swing.GroupLayout JPAVLLayout = new javax.swing.GroupLayout(JPAVL);
+        JPAVL.setLayout(JPAVLLayout);
+        JPAVLLayout.setHorizontalGroup(
+            JPAVLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPAVLLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(JSCAVL, javax.swing.GroupLayout.DEFAULT_SIZE, 755, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        JPAVLLayout.setVerticalGroup(
+            JPAVLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPAVLLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(JSCAVL, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        JTPReportes.addTab("AVL", JPAVL);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -174,7 +195,26 @@ public class JFReportes extends javax.swing.JFrame {
             JPPila.add(JSCPila);
             //scrollpane.setBounds(0, 0, panelHash.getWidth(), panelHash.getHeight());
             
-        } catch (IOException ex) {
+        }catch (IOException ex){
+            System.out.println("Error imagen NO encontrada");
+        } 
+    }
+    
+    
+    public void imagenAVL(){
+        miDir = new File(".");
+        try {
+            
+            imagenHash = new ImageIcon(miDir.getCanonicalPath() + "\\AVL.jpg");
+            Image img = imagenHash.getImage();
+            ImageIcon imgt = new ImageIcon(img.getScaledInstance(imagenHash.getIconWidth(),imagenHash.getIconHeight(),Image.SCALE_AREA_AVERAGING));
+            etiqueta = new JLabel();
+            etiqueta.setIcon(imgt);
+            JSCAVL.setViewportView(etiqueta);
+            JPAVL.add(JSCAVL);
+            //scrollpane.setBounds(0, 0, panelHash.getWidth(), panelHash.getHeight());
+            
+        }catch (IOException ex){
             System.out.println("Error imagen NO encontrada");
         } 
     }
@@ -219,8 +259,10 @@ public class JFReportes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBTRegresar;
+    private javax.swing.JPanel JPAVL;
     private javax.swing.JPanel JPHash;
     private javax.swing.JPanel JPPila;
+    private javax.swing.JScrollPane JSCAVL;
     private javax.swing.JScrollPane JSCHash;
     private javax.swing.JScrollPane JSCPila;
     private javax.swing.JTabbedPane JTPReportes;

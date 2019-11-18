@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package edd_drive;
-
 /**
  *
  * @author user
@@ -19,6 +18,9 @@ public class EDD_DRIVE {
         Interfaz interfaz = new Interfaz();
         interfaz.setLocationRelativeTo(null);
         interfaz.show();
+        
+        
+        
     }
     
 }

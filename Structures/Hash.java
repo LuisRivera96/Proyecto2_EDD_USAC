@@ -66,19 +66,16 @@ public class Hash {
             conteoE++;
             modeloE.addRow(new Object[]{conteoE,usuario,"Contrasena menor a 8 Caracteres"});
             //agregar a userNoInsertado
+            return validezT;
         }
-        for (int i = 0; i < hash.length; i++) {
-            if(hash[i] != null){
-               userN = hash[i].buscar(usuario); 
-            }
-            
-        }
+        //BUSCAR USUARIO
+        userN = buscar(usuario);
         if(userN != null){
             validez2 = false;
             conteoE++;
             modeloE.addRow(new Object[]{conteoE,usuario,"Usuario ya Registrado"});
+            return validezT;
         }else{
-            
             validez2 = true;
             conteoA++;
             modeloA.addRow(new Object[]{conteoA,usuario,password});

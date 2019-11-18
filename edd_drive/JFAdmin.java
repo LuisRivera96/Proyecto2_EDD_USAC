@@ -253,6 +253,12 @@ public class JFAdmin extends javax.swing.JFrame {
     private void JBReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBReportesActionPerformed
         // TODO add your handling code here:
         pila.getGraphica();
+        hash.graficarHash();
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException ex){
+            System.out.println("Error");
+        }
         reportes.setLocationRelativeTo(null);
         reportes.show(true);
         
