@@ -1,0 +1,23 @@
+digraph AVL{
+
+compound=true;
+
+node[shape="Mrecord"];
+
+Archivo4:fArchivo4[id=Archivo4, color="blue"];
+Archivo4[label="<N Archivo4 I> | <f Archivo4> Nombre Archivo: Archivo4\n Contenido: dasdasd\n Factor de Equilibrio: -1\n Altura: 4\n Timestamp: 13:22:19 22/11/2019\n Propietario: Luis | <fArchivo4D> " shape="record"];
+"Archivo4" : NArchivo4I ->  Archivo2:fArchivo2[id=Archivo2, color="blue"];
+Archivo2[label="<N Archivo2 I> | <f Archivo2> Nombre Archivo: Archivo2\n Contenido: qwe\n Factor de Equilibrio: -2\n Altura: 2\n Timestamp: 13:21:59 22/11/2019\n Propietario: Luis | <fArchivo2D> " shape="record"];
+"Archivo2" : NArchivo2I ->  Archivo1:f Archivo1[label="Nombre Archivo: Archivo1\n Contenido: asdas\n Factor de Equilibrio: -1\n Altura: 1\n Timestamp: 13:21:50 22/11/2019\n Propietario: Luis", color="blue" shape="rectangle"];
+"Archivo2" : fArchivo2D ->  Archivo3:f Archivo3[label="Nombre Archivo: Archivo3\n Contenido: 23123\n Factor de Equilibrio: -1\n Altura: 1\n Timestamp: 13:22:11 22/11/2019\n Propietario: Luis", color="blue" shape="rectangle"];
+"Archivo4" : fArchivo4D ->  Archivo8:fArchivo8[id=Archivo8, color="blue"];
+Archivo8[label="<N Archivo8 I> | <f Archivo8> Nombre Archivo: Archivo8\n Contenido: asdasd\n Factor de Equilibrio: -1\n Altura: 3\n Timestamp: 13:23:00 22/11/2019\n Propietario: Luis | <fArchivo8D> " shape="record"];
+"Archivo8" : NArchivo8I ->  Archivo6:fArchivo6[id=Archivo6, color="blue"];
+Archivo6[label="<N Archivo6 I> | <f Archivo6> Nombre Archivo: Archivo6\n Contenido: ffa4\n Factor de Equilibrio: -2\n Altura: 2\n Timestamp: 13:22:37 22/11/2019\n Propietario: Luis | <fArchivo6D> " shape="record"];
+"Archivo6" : NArchivo6I ->  Archivo5:f Archivo5[label="Nombre Archivo: Archivo5\n Contenido: dsad\n Factor de Equilibrio: -1\n Altura: 1\n Timestamp: 13:22:27 22/11/2019\n Propietario: Luis", color="blue" shape="rectangle"];
+"Archivo6" : fArchivo6D ->  Archivo7:f Archivo7[label="Nombre Archivo: Archivo7\n Contenido: 3423fds\n Factor de Equilibrio: -1\n Altura: 1\n Timestamp: 13:22:46 22/11/2019\n Propietario: Luis", color="blue" shape="rectangle"];
+"Archivo8" : fArchivo8D ->  Calificacion:fCalificacion[id=Calificacion, color="blue"];
+Calificacion[label="<N Calificacion I> | <f Calificacion> Nombre Archivo: Calificacion\n Contenido: 201602813\n Factor de Equilibrio: 1\n Altura: 2\n Timestamp: 13:18:03 22/11/2019\n Propietario: Luis | <fCalificacionD> " shape="record"];
+"Calificacion" : NCalificacionI ->  Archivo9:f Archivo9[label="Nombre Archivo: Archivo9\n Contenido: dsadasda\n Factor de Equilibrio: 0\n Altura: 1\n Timestamp: 13:23:12 22/11/2019\n Propietario: Luis", color="blue" shape="rectangle"];
+
+}

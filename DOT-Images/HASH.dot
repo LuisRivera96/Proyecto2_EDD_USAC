@@ -1,0 +1,38 @@
+digraph HASH{
+
+node[shape=record];
+
+rankdir=LR;
+
+		//Agregar Hash
+LIST[label="<N0>0)\n\n\n\n|<N1>1)\n\n\n\n|<N2>2)\n\n\n\n|<N3>3)\n\n\n\n|<N4>4)\n\n\n\n|<N5>5)\n\n\n\n|<N6>6)\n\n\n\n|<N7>7)\n\n\n\n|<N8>8)\n\n\n\n|<N9>9)\n\n\n\n|<N10>10)\n\n\n\n|<N11>11)\n\n\n\n|<N12>12)\n\n\n\n|<N13>13)\n\n\n\n|<N14>14)\n\n\n\n|<N15>15)\n\n\n\n|<N16>16)\n\n\n\n|<N17>17)\n\n\n\n|<N18>18)\n\n\n\n|<N19>19)\n\n\n\n|<N20>20)\n\n\n\n|<N21>21)\n\n\n\n|<N22>22)\n\n\n\n|<N23>23)\n\n\n\n|<N24>24)\n\n\n\n|<N25>25)\n\n\n\n|<N26>26)\n\n\n\n|<N27>27)\n\n\n\n|<N28>28)\n\n\n\n"];
+		//Agregar Usuarios
+N1[label="{Nombre: BobEsponja Password: 7f8f82ced0821ef997cf8bb3cf25a6fc32fac59a63864b4f474a1d38412716b6 TimesTamp: 13:09:54 22/11/2019}"];
+N3[label="{Nombre: KarlMarx Password: 6ffbbb0c460f1ecdd47e01831bc7da92f7d9d907057eb6193beca1041a2c5358 TimesTamp: 13:09:54 22/11/2019}"];
+N4[label="{Nombre: Estela Password: 17f80754644d33ac685b0842a402229adbb43fc9312f7bdf36ba24237a1f1ffb TimesTamp: 13:09:54 22/11/2019|Nombre: Pablo Password: ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f TimesTamp: 13:09:54 22/11/2019|Nombre: Marco_papa Password: 9dc7cf6f135253cae5fe92f49f7a014ce53980ba7f1b503e8b74ae812c56ef16 TimesTamp: 13:09:54 22/11/2019}"];
+N5[label="{Nombre: Kanna Password: 81d6402a317b8cfdbdb418a9d3badade399361e00ca410f1b2c6899cb38b8611 TimesTamp: 13:09:54 22/11/2019}"];
+N6[label="{Nombre: Robert Password: 1b7e9d90982cca8021a4082497414df47f0320735e034bc36ea380fedb003b03 TimesTamp: 13:09:54 22/11/2019|Nombre: Mauricio Password: cdcb7422ca0fe077931b84e6fb7e6dfb7d6678dc7e9ae9c4335e98edc7d5761a TimesTamp: 13:09:54 22/11/2019|Nombre: Rosa Password: b024effae4a48613678e26d6ab019350a2dfeab4fd071e69c5bd28e96b686965 TimesTamp: 13:09:54 22/11/2019|Nombre: Yuigahama Password: ecdf29af72f64d20dd4f3c05dd73bd0ac688f94cf6cdc9bcf4ac92ac032cebca TimesTamp: 13:09:54 22/11/2019|Nombre: UsuarioEDD Password: bee35df091d6428048573de7316dc32bfa18eab847fe3214dcaed3cbf456bebb TimesTamp: 13:09:54 22/11/2019}"];
+N7[label="{Nombre: Luis Password: ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f TimesTamp: 13:11:51 22/11/2019}"];
+N8[label="{Nombre: Romeo Password: f147ef3f41ddd8b525210ec9c54435041ab6804ab0f4fc49885e486b0388e7a0 TimesTamp: 13:09:54 22/11/2019}"];
+N9[label="{Nombre: Gustave Password: ab50fb88e045fb58e3edb9c1b6495e4d8811829a35f67379a38cd0e13d93d5a2 TimesTamp: 13:09:54 22/11/2019|Nombre: Andrea Password: 1cd8e5f4826e1e694b14ca74ea2f39975dbdfc9ab93b47a7ae7889144c5bc36b TimesTamp: 13:09:54 22/11/2019}"];
+N10[label="{Nombre: JhonLenon Password: 99a395616beb7722878f9a1cd3a13c1edb57e012227acb67bb5fdeb92f9635f9 TimesTamp: 13:09:54 22/11/2019}"];
+N16[label="{Nombre: HansCristian Password: f7bc54ac74d880370bc01d1d92dd725a6240b667ab4f5b3c89a02b144d0e4119 TimesTamp: 13:09:54 22/11/2019}"];
+N17[label="{Nombre: Ernesti Password: 02135b02d3b82e3151c8b096dd58cb6956d5d3e67b7cf643b9207ec5a33e852e TimesTamp: 13:09:54 22/11/2019}"];
+N19[label="{Nombre: Rossetti  Password: 81d6402a317b8cfdbdb418a9d3badade399361e00ca410f1b2c6899cb38b8611 TimesTamp: 13:09:54 22/11/2019}"];
+N24[label="{Nombre: Shouko Password: 2c43fc9a7e99d1cf711105ba58b9b14e5a94d7f2ed05c9f6d12a18b1cf07751d TimesTamp: 13:09:54 22/11/2019}"];
+		//Agregar Conexiones
+LIST:N1->N1;
+LIST:N3->N3;
+LIST:N4->N4;
+LIST:N5->N5;
+LIST:N6->N6;
+LIST:N7->N7;
+LIST:N8->N8;
+LIST:N9->N9;
+LIST:N10->N10;
+LIST:N16->N16;
+LIST:N17->N17;
+LIST:N19->N19;
+LIST:N24->N24;
+
+}
