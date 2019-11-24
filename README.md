@@ -18,4 +18,4 @@ Incluye:
 
 NOTA: 59/100
 
-"El proyecto esta muy incompleto"
+"El proyecto esta muy incompleto  y el atributo Factor de Equilibrio del AVL se calcula mal al momento de graficar"
